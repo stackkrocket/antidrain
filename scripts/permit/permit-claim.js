@@ -53,7 +53,7 @@ async function main() {
   const tokenAbi = ["function decimals() view returns (uint8)"];
   const tokenContract = new ethers.Contract(tokenAddress, tokenAbi, provider);
   const decimals = await tokenContract.decimals();
-  const balance = ethers.parseUnits("1", decimals);
+  const balance = ethers.parseUnits(process.env.TOKEN_AMOUNT, decimals);
 
   const callData = "0x7ecebe00" + compromisedAddress.slice(2).padStart(64, "0");
   const tokenNonceData = await provider.send("eth_call", [{ to: tokenAddress, data: callData }, "latest"]);
